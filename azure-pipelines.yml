@@ -1,11 +1,11 @@
 trigger: none
 pool: selfhostedagent
 stages:
-    - stage: nodejs install
-      displayName: Install node js
+    - stage: nodejsinstall
+      displayName: installnodejs
       jobs:
-      - job: install js
-        displayName: install js
+      - job: installjs
+        displayName: installjs
         steps: 
         - task: UseNode@1
           inputs:
