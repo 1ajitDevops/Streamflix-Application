@@ -1,1 +1,25 @@
+trigger: none
+pool: selfhostedagent
+stages:
+    - stage: nodejs install
+      displayName: Install node js
+      jobs:
+      - job: install js
+        displayName: install js
+        steps: 
+        - task: UseNode@1
+          inputs:
+            checkLatest: true
+        - task: ArchiveFiles@2
+          inputs:
+            rootFolderOrFile: '$(Build.SourcesDirectory)'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/streamflix-app.zip'
+            replaceExistingArchive: true
 
+        - task: PublishBuildArtifacts@1
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
