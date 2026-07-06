@@ -31,6 +31,11 @@ stages:
         - job: DeployStage
           displayName: DeployStage
           steps: 
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              artifactName: 'drop'
+              targetPath: '$(Pipeline.Workspace)/drop'
           - task: AzureRmWebAppDeployment@5
             inputs:
               ConnectionType: 'AzureRM'
