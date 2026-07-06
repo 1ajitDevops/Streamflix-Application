@@ -23,3 +23,19 @@ stages:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)'
             ArtifactName: 'drop'
             publishLocation: 'Container'
+
+    - stage: DeployStage
+      displayName: DeployStage
+      dependsOn: nodejsinstall
+      jobs:
+        - job: DeployStage
+          displayName: DeployStage
+          steps: 
+          - task: AzureRmWebAppDeployment@5
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure for Students(7617312b-3d00-4f61-9fd7-4380615857ab)'
+              appType: 'webAppLinux'
+              WebAppName: 'streamflix-app-ajit'
+              packageForLinux: '$(Pipeline.Workspace)/drop/streamflix-app.zip'
+              DeploymentTypeLinux: 'oneDeploy'
